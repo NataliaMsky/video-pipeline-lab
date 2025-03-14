@@ -1,0 +1,8 @@
+storage/videos/
+storage/encoded/
+temp/
+temp_encoded/
+*.mp4
+*.avi
+*.mkv
+*.webm
