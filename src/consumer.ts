@@ -15,7 +15,7 @@ function encodeVideo(inputPath: string, format: string): Promise<string> {
     if (!fs.existsSync(outputDir)) {
       fs.mkdirSync(outputDir, { recursive: true });
     }
-    const outputPath = path.join(outputDir, `${inputBasename}_converted.${format}`); // Добавляем _converted
+    const outputPath = path.join(outputDir, `${inputBasename}_converted.${format}`); 
     ffmpeg(inputPath)
       .output(outputPath)
       .on("end", () => {
