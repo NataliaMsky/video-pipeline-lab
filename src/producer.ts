@@ -49,9 +49,7 @@ async function runProducer(): Promise<void> {
   for (let id of videoIds) {
     try {
       //const outputFilename = `downloaded_video_${id}.mp4`;
-      //const outputFilename = `downloaded_video_${id}`;
-      //let localOutputPath = path.join(tempDir, outputFilename);
-      const outputFilename = `downloaded_video_${id}.mp4`;
+      const outputFilename = `downloaded_video_${id}`;
       let localOutputPath = path.join(tempDir, outputFilename);
       
       const videoUrl = `https://www.youtube.com/watch?v=${id}`;
@@ -60,11 +58,12 @@ async function runProducer(): Promise<void> {
       localOutputPath = await downloadYouTubeVideo(videoUrl, localOutputPath);
       console.log(`Downloaded to: ${localOutputPath}`);
 
-      const s3Key = `videos/${outputFilename}`;
-      await uploadToS3(localOutputPath, s3Key);
+      const s3Key = `videos/${outputFilename}.mp4`;
+      await uploadToS3(localOutputPath + ".mp4", s3Key);
       await produceEvent(s3Key);
 
-      fs.unlinkSync(localOutputPath);
+      //fs.unlinkSync(localOutputPath);
+      fs.unlinkSync(localOutputPath + ".mp4");
     } catch (err) {
       console.error("Producer error:", err);
     }
